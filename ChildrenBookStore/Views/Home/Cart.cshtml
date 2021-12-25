@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Cart>
+
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Bootstrap.cshtml";
+}
+
+<h1>Cart</h1>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+        body {
+            font-family: Arial;
+            font-size: 17px;
+            padding: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin: 0 -16px;
+            padding-bottom: 30px;
+        }
+
+        .col-25 {
+            -ms-flex: 25%;
+            flex: 25%;
+        }
+
+
+        .col-75 {
+            -ms-flex: 75%;
+            flex: 75%;
+        }
+
+        .col-25,
+        .col-75 {
+            padding: 0 16px;
+        }
+
+
+        .container1 {
+            background-color: #ffeee6;
+            padding: 5px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+        }
+
+        hr {
+            border: 1px solid lightgrey;
+        }
+
+        span.price {
+            float: right;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="alert-danger">@ViewBag.Result</h2>
+    <div class="row">
+        <div class="col-75">
+            <div class="container1">
+                <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>@ViewBag.counter</b></span></h4>
+                <form asp-action="Cart">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="products">
+                            <p>
+                                <img class="col-15" src="@Html.DisplayFor(modelItem => item.BookImage)" alt="Books" width="100px">
+                                <span class="font-weight-bold d-block">@Html.DisplayFor(modelItem => item.BookName)</span>
+                                <span class="price">₹@Html.DisplayFor(modelItem => item.Price)</span>
+                            </p>
+                        </div>
+
+                    }
+                </form>
+                <hr>
+                <p>Total <span class="price" style="color:black"><b>₹@ViewBag.Total</b></span></p>
+            </div>
+        </div>
+        <div class="col-25">
+            <div class="container">
+                <img src="https://cdn.pixabay.com/photo/2016/05/18/16/25/shopping-1400845_640.png" alt="order" width="75%">
+            </div>
+        </div>
+    </div>
+    <a asp-action="UserDetails"><button class="btn-success">Checkout</button></a>
+</body>
+</html>
+
